@@ -1,6 +1,6 @@
 # Boundary Discipline & Formal Verification for AI Safety
 
-**Author:** [Duston Moore]
+**Author:** Duston Moore
 **Role:** Independent AI Safety Researcher & Formal Verification Engineer
 **Specialization:** Type Theory, OCaml, Mechanistic Interpretability, Process Philosophy
 
