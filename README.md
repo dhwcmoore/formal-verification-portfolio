@@ -58,7 +58,6 @@ This project serves as a contrast case: high-performance computation paired with
 ├── README.md
 └── LICENSE
 
-Only artefacts intended for public inspection are included. Experimental material, editor noise, and build artefacts are intentionally excluded.
 
 ---
 
