@@ -73,7 +73,7 @@ The work collected here is guided by a small number of non-negotiable principles
 
 3. **Auditability as a first-class object**  
 
-O
+
 
    Verification produces an artefact, not a feeling. If it cannot be inspected, replayed, or invalidated, it does not count.
 
@@ -119,3 +119,4 @@ Unless otherwise noted, all original code and text in this repository is release
 
 This portfolio is intended to support technical discussion rather than marketing.  
 If something here is unclear, that is a design failure, not a rhetorical choice.
+Duston Moore dhwcmoore@gmail.com
