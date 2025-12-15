@@ -1,0 +1,18 @@
+(coq.theory
+ (name VeriboundCore)
+ (modules
+  VerifiedBoundaryHelpers
+  FlocqTypes
+  FlocqClassification
+  SafetyCore
+  Basel_Risk_Boundaries
+  Basel_III_Compliance
+  EPA_Precision_Standards
+  EPA_Compliance
+  FDA_Device_Safety
+  FDA_Compliance
+  clean_version)
+ (flags :standard -w -notation-overridden -w -deprecated-syntactic-definition)
+ (stdlib yes)
+ (mode vo)
+ (theories Flocq))

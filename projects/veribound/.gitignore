@@ -1,0 +1,14 @@
+*.vo
+*.vos
+*.vok
+*.glob
+_build/
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+*.rej
+*.salvage*
+.DS_Store
