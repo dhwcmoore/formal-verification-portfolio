@@ -1,129 +1,122 @@
-Parallelized Topological Data Analysis & Formal Verification
-Objective
+# Formal Verification Portfolio
 
-This repository collects all of the components needed to present a high‑leverage engineering portfolio. The goal is to show that you are not merely a junior developer, but a specialist capable of bridging Deep Tech (mathematics and topological data analysis), Systems Architecture (reliability and multicore performance), and Theoretical Insight (formal verification). Each element in this project reinforces the others, demonstrating both domain mastery and attention to correctness.
+This repository presents a small number of high-leverage artefacts demonstrating boundary-aware formal verification, systems discipline, and proof-guided engineering. The emphasis is not on volume, but on clarity of architectural judgement and correctness under explicit constraints.
 
-File Inventory & Status
-Asset	Location	Status	Next Step
-Code (cosheaf.ml)	./cosheaf.ml	Prototype	Parallelise with OCaml 5 Domain, benchmark, compile to WebAssembly
-Theory (Paper)	papers/bd-revised.tex	Draft	Apply LaTeX fixes, insert Figure 1, and compile to PDF
-Bridge (README)	README.md	Ready	Copy this content into the repository root
-Visual 1 (TikZ)	embedded in paper	Code only	Paste the TikZ into the LaTeX source to draw the SmartAudit diagram
-Visual 2 (Mermaid)	in this README	Embedded	Already present via Mermaid code below
+The projects collected here share a common thesis:
 
-Each entry above points to a deliverable in this project. The Code implements a fast cosheaf library for computing persistent homology. The Theory formalises why the separation between generation and certification is necessary. The Bridge (this README) ties everything together with an implementation plan and clear exposition. The two Visuals illustrate the core architectural insight—where traditional verification pipelines fail and how to seal those boundaries.
+> Verification success within a layer does not entail correctness relative to the surrounding system unless boundary conditions are explicitly enforced.
 
-Implementation Plan
-Phase 1: Solidify the Theory
+---
 
-Create a perfect, authoritative PDF for your manifesto:
+## Fast entry points
 
-Open the LaTeX source (papers/bd-revised.tex) and apply the remaining notation fixes (such as replacing raw brackets with semantic brackets \llbracket \rrbracket and using \not\models for “does not model”).
+### 1. VeriBound  
+**Auditability beyond self-certification**
 
-Insert the provided TikZ code to produce Figure 1 (“SmartAudit Failure”).
+`projects/veribound/`
 
-Compile the revised document to produce a final PDF. This will serve as a canonical reference for your theoretical results.
+VeriBound is a boundary-enforced audit architecture that produces explicit, sealed audit traces rather than relying on internal claims of correctness.
 
-Phase 2: Weaponise the Code
+The system implements the **Production–Closure Separation** proven in the companion work on boundary discipline and the structural limits of internal certification. In short: generation and certification cannot safely reside in the same layer.
 
-Demonstrate performance mastery with multicore OCaml:
+**What to look at first**
+- `projects/veribound/docs/`  
+  Minimal demo artefacts showing input data and the resulting audit trace.
+- `projects/veribound/src/`  
+  Coq and OCaml sources defining boundary predicates, admissibility conditions, and extracted verification logic.
+- `projects/veribound/paper/`  
+  Companion theoretical material motivating the architecture.
 
-Implement Smith Normal Form reduction in cosheaf.ml. This algorithm is essential for efficient homology computation over integer coefficients.
+VeriBound is intended to be legible in seconds and defensible over hours.
 
-Use OCaml 5’s Domain library to parallelise the reduction step. Properly splitting matrix operations across cores will yield significant performance gains.
+---
 
-Run benchmarks against popular Python TDA libraries (e.g., Gudhi) and record the results here in the README. Focus on both the Vietoris–Rips construction and matrix reduction times.
+### 2. Parallelised Topological Data Analysis (OCaml)
 
-Phase 3: The Hook (Web Visualiser)
+This track develops a cosheaf-based approach to persistent homology with explicit attention to correctness boundaries, performance, and multicore execution.
 
-Provide a zero‑friction demo that runs in any browser:
+The aim is to demonstrate that mathematical sophistication and systems engineering discipline can coexist in production-grade code.
 
-Compile cosheaf.ml to WebAssembly using js_of_ocaml. This turns your high‑performance code into a portable module.
+**Key elements**
+- OCaml implementations of algebraic kernels
+- A plan for multicore parallelisation using OCaml 5 Domains
+- A browser-based demonstration path via WebAssembly
 
-Build a simple HTML/React wrapper that accepts a CSV file (representing a point cloud) and invokes the WebAssembly module to compute persistent homology. Render the resulting barcode diagram directly in the browser.
+This project serves as a contrast case: high-performance computation paired with explicit correctness assumptions rather than implicit guarantees.
 
-Architecture of the Portfolio Site
+---
 
-The final site will present all three pillars—code, theory, and demo—in a coherent, compelling way.
+## Repository structure
+.
+├── projects/
+│ └── veribound/
+│ ├── README.md
+│ ├── docs/
+│ ├── src/
+│ └── paper/
+├── papers/
+├── README.md
+└── LICENSE
 
-Headline: Parallelized Topological Data Analysis & Formal Verification
+Only artefacts intended for public inspection are included. Experimental material, editor noise, and build artefacts are intentionally excluded.
 
-Hero Image: the SmartAudit Failure diagram (Figure 1) from the paper
+---
 
-Link 1 (Code): points to this GitHub repository containing the optimised cosheaf.ml and this README
+## Design principles
 
-Link 2 (Theory): points to the hosted PDF of the revised paper
+The work collected here is guided by a small number of non-negotiable principles:
 
-Link 3 (Demo): points to a live browser‑based TDA visualiser built on the compiled WebAssembly module
+1. **Explicit boundaries**  
+   Every guarantee is relative to a declared scope. No global correctness claims are made without boundary conditions.
 
-These three links provide a narrative arc: theory explains the limitations of naïve pipelines, the OCaml code demonstrates a fast and principled implementation, and the demo offers an immediate, interactive proof of concept.
+2. **Separation of concerns**  
+   Productive computation and certification are treated as distinct phases with distinct responsibilities.
 
-ocaml‑cosheaf Library
+3. **Auditability as a first-class object**  
 
-This repository includes cosheaf.ml, a high‑performance library for Topological Data Analysis that enforces rigorous boundary discipline. It implements cellular cosheaves over simplicial complexes and is designed for high‑throughput persistent homology calculations. By leveraging OCaml 5’s multicore parallelism and strong static typing, it avoids the interpretation boundary errors described in the accompanying paper.
+O
 
-Features
+   Verification produces an artefact, not a feeling. If it cannot be inspected, replayed, or invalidated, it does not count.
 
-10× speedup over Python TDA packages by using sparse matrix algorithms and parallelised Smith Normal Form reduction.
+4. **Minimal surface area**  
+   Each project is structured so that a reviewer can identify the core idea without traversing the entire codebase.
 
-Formally verified architecture: implements the production–closure separation theorem, ensuring that productive topology operations (extending complexes) are distinct from certifying homology operations (computing groups).
+---
 
-Sealing protocol: enforces a two‑layer design separating productive operations from closure operations, preventing silent boundary violations.
+## How to read this repository
 
-Architecture Diagram
-flowchart LR
-    subgraph SAFE["Internal Certification (The Illusion)"]
-        A[Stage 0: Spec] -->|"Embedding"| B[Stage 1: Formal Model]
-        B -->|"Proof Search"| C[Stage 2: Solver (Valid)]
-    end
+If you have limited time:
 
-    subgraph RISK["External Reality (The Failure)"]
-        C -.->|"Interpretation Boundary Error"| D[Stage 3: Deployment]
-    end
+1. Open `projects/veribound/docs/`
+2. Read the example input and output audit trace
+3. Skim `projects/veribound/README.md`
 
-    style C fill:#d4edda,stroke:#28a745,stroke-width:2px
-    style D fill:#f8d7da,stroke:#dc3545,stroke-width:4px,stroke-dasharray: 5 5
+If you want the formal core:
 
-Usage
-Defining a Cosheaf
-open Cosheaf
-open Linear_algebra
+- Follow the Coq sources under `projects/veribound/src/coq/`
+- Consult the companion paper material for the underlying separation results
 
-module MyCosheaf = CellularCosheaf.Make(struct
-  type data_block = vector_space
-  
-  (* The extension map pushes data from a face to a coface *)
-  let extension_map face coface = 
-    match (face, coface) with
-    | (u, v) when is_face u v -> Matrix.identity 3
-    | _ -> Matrix.zero
-end)
+If you are interested in performance and systems design:
 
-Validating the Structure
-let valid = MyCosheaf.is_valid my_cosheaf
-(* Returns true only if composition of maps is consistent across all faces *)
+- Explore the TDA track and its planned multicore and WebAssembly deployment
 
-Computing Homology
-let complex = ChainComplex.from_cosheaf my_cosheaf
-let homology_groups = ChainComplex.homology complex
-(* Result: the Betti numbers describing the topology of the dataset *)
+---
 
-Benchmarks
-Operation	Python (Gudhi)	OCaml (single core)	OCaml (multicore)	Speedup
-Vietoris–Rips (10k points)	242 s	45 s	18 s	13.4×
-Matrix reduction (20k dimension)	180 s	32 s	12 s	15.0×
+## Status
 
-These results were measured on an AWS c6i.4xlarge instance (16 vCPUs). Multicore OCaml shows clear advantage over Python implementations even before considering the benefits of strong static typing and formal verification.
+This repository is intentionally curated rather than exhaustive. Each included artefact represents a stable conceptual position, not a transient experiment.
 
-Reference
+Further material may be added only when it sharpens, rather than dilutes, the architectural narrative.
 
-Duston Moore. Boundary Discipline and the Structural Limits of Internal Certification, 2025. The paper argues that the separation between generation and certification is not a convenience but a structural necessity; it introduces the production–closure separation theorem and proposes a sealing protocol to enforce boundary discipline. A link to the revised PDF is provided in the project site.
+---
 
-Author
+## Licence
 
-Duston Moore
-Specialist in formal verification, OCaml, and topological data analysis.
+Unless otherwise noted, all original code and text in this repository is released under the MIT Licence. Third-party dependencies retain their original licensing terms.
 
-• Portfolio
+---
 
-• LinkedIn
+## Contact
+
+This portfolio is intended to support technical discussion rather than marketing.  
+If something here is unclear, that is a design failure, not a rhetorical choice.
